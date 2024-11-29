@@ -63,7 +63,7 @@ async def send_requests(api_endpoint, duration_seconds):
             await send_request(session, api_endpoint, path, method)
 
             # 비동기 sleep (CPU 블로킹 방지)
-            await asyncio.sleep(random.uniform(1, 2))
+            await asyncio.sleep(random.uniform(0.01, 0.05))
 
             print(f"Elapsed time: {time.time() - start_time:.2f} seconds")
     print(f"traffic count => {count}")
@@ -76,7 +76,8 @@ if __name__ == "__main__":
     if api_gateway_endpoint_invoke_url:
         # asyncio.run을 사용하여 이벤트 루프 실행
         asyncio.run(
-            send_requests(api_gateway_endpoint_invoke_url, duration_seconds=3600)
+            # send_requests(api_gateway_endpoint_invoke_url, duration_seconds=3600)
+            send_requests(api_gateway_endpoint_invoke_url, duration_seconds=300)
         )  # 1시간
     else:
         print("Failed to retrieve the API Gateway endpoint URL.")
